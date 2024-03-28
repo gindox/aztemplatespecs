@@ -1,0 +1,96 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachineName": {
+            "type": "string",
+            "metadata": {
+                "description": "Virtual Machine Name"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "domain",
+            "allowedValues": [
+                "domain",
+                "sqlserver",
+                "storage"
+            ],            
+            "metadata": {
+                "description" : "choose subnet: "
+            }
+        },
+        "virtualMachineSize": {
+            "type": "string",
+            "defaultValue": "Standard_B2als_v2",
+            "allowedValues": [
+                "Standard_B2als_v2",
+                "Standard_B1ms",
+                "Standard_B2ms",
+                "Standard_B2as_v2",
+                "Standard_B2ats_v2"
+            ]
+        },
+        "SKU": {
+            "type": "string",
+            "defaultValue": "2022-datacenter-azure-edition-hotpatch-smalldisk",
+            "allowedValues": [
+                "2022-datacenter-azure-edition-hotpatch-smalldisk",
+                "2022-Datacenter-Azure-Edition-Core-smalldisk"
+            ]
+        }
+    },
+
+    "variables": {
+        "env": "northeurope-vnet",
+        "localadminUser": "localadmin"
+    },
+
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2022-09-01",
+            "name": "[concat('gindoxDeploy-',parameters('virtualMachineName'))]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "relativePath": "generic_windows.json"
+                },
+                "parameters": {
+                    "virtualMachineName": {
+                        "value": "[parameters('virtualMachineName')]"
+                    },
+
+                    "env": {
+                        "value": "[variables('env')]"
+                    },
+
+                    "subnetName": {
+                        "value" : "[parameters('subnetName')]"
+                    },
+
+                    "localadminUser": {
+                        "value": "[variables('localadminUser')]"
+                    },
+
+                    "localadminPassword": {
+                        "reference": {
+                            "keyVault": {
+                                "id": "/subscriptions/be9bc786-adb7-4503-94d8-08b1d1ac659f/resourceGroups/gindoxcore/providers/Microsoft.KeyVault/vaults/keymaker"
+                            },
+                            "secretName" : "localadminPassword"
+                        }
+                    },
+
+                    "virtualMachineSize": {
+                        "value": "[parameters('virtualMachineSize')]"
+                    },
+
+                    "SKU": {
+                        "value": "[parameters('SKU')]"
+                    }
+                }
+            }
+        }
+    ]
+}
