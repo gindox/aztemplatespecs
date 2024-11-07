@@ -9,7 +9,9 @@
             "type": "string",
             "defaultValue": "northeurope-vnet",
             "allowedValues": [
-                "northeurope-vnet"
+                "northeurope-vnet",
+                "uksouth-vnet",
+                "norwayeast-vnet"
             ]
         },
         "subnetName" : {
@@ -34,7 +36,15 @@
         "regionConfig": {
             "northeurope-vnet" : {
                 "vnetName" : "northeurope-vnet",
-                "vnetRG" : "corp-gindox-network"
+                "vnetRG" : "gindox-network"
+            },
+            "uksouth-vnet" : {
+                "vnetName" : "uksouth-vnet",
+                "vnetRG" : "gindox-network"
+            },
+            "norwayeast-vnet" : {
+                "vnetName" : "norwayeast-vnet",
+                "vnetRG" : "gindox-network"
             }
         },
         "nicName": "[toLower(concat(parameters('virtualMachineName'),'-eth0'))]",
@@ -109,14 +119,7 @@
                     "windowsConfiguration": {                        
                         "enableAutomaticUpdates": true,
                         "provisionVmAgent": true,
-                        "timeZone": "GTB Standard Time",
-                        "patchSettings": {
-                            "enableHotpatching": true,
-                            "patchMode": "AutomaticByPlatform",
-                            "automaticByPlatformSettings": {
-                                "rebootSetting": "IfRequired"
-                            }
-                        }
+                        "timeZone": "GMT Standard Time"
                     }
                 },
                 "securityProfile": {
