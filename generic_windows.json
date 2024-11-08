@@ -18,8 +18,7 @@
             "type": "string"
         },
         "localadminUser": {
-            "type": "string",
-            "defaultValue": "localadmin"
+            "type": "string"
         },
         "localadminPassword": {
             "type": "securestring"
