@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachineName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the VM"
+            }
+        },
+        "env": {
+            "type": "string",
+            "defaultValue": "northeurope-vnet",
+            "allowedValues": [
+                "northeurope-vnet",
+                "uksouth-vnet",
+                "norwayeast-vnet"
+            ]
+        },
+        "subnetName" : {
+            "type": "string",
+            "defaultValue": "domain"
+        },
+        "virtualMachineSize": {
+            "type": "string",
+            "defaultValue": "Standard_B2ats_v2",
+            "allowedValues": [
+                "Standard_B2ats_v2",
+                "Standard_B2als_v2",
+                "Standard_B2as_v2"  
+            ]
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2021-04-01",
+            "name": "[concat('gindox-deployment',parameters('virtualMachineName'))]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "relativePath": "generic_linux.json"
+                },
+                "parameters": {
+                    "virtualMachineName": {
+                        "value": "[parameters('virtualMachineName')]"
+                    },
+                    "env": {
+                        "value": "[parameters('env')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
+                    },
+                    "adminUsername" : {
+                        "value": "grzegorz"
+                    },
+                    "adminPublicKey": {
+                        "reference": {
+                            "keyVault": {
+                                "id": "/subscriptions/be9bc786-adb7-4503-94d8-08b1d1ac659f/resourceGroups/gindoxcore/providers/Microsoft.KeyVault/vaults/corpgindoxvault"
+                            },
+                            "secretName": "id-rsa-gindox-pub"
+                        }
+                    },
+                    "virtualMachineSize": {
+                        "value": "[parameters('virtualMachineSize')]"
+                    }
+                }
+            }
+        }
+    ]
+}
