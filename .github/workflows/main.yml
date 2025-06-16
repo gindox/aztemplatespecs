@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run PowerShell deployment script
+      shell: pwsh
+      run: |
+        ./deployment.ps1 -password "${{ secrets.PASSWORD }}" -appId "${{ secrets.APPID }}" -tenantId "${{ secrets.TENANTID }}" -rgName "${{ secrets.RGNAME }}"
