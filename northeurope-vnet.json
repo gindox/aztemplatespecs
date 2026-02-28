@@ -36,7 +36,9 @@
             "defaultValue": "2022-datacenter-azure-edition-hotpatch-smalldisk",
             "allowedValues": [
                 "2022-datacenter-azure-edition-hotpatch-smalldisk",
-                "2022-Datacenter-Azure-Edition-Core-smalldisk"
+                "2022-Datacenter-Azure-Edition-Core-smalldisk",
+                "2025-datacenter-azure-edition-smalldisk",
+                "2025-datacenter-azure-edition-core-smalldisk"
             ]
         }
     },
