@@ -13,4 +13,4 @@ steps:
 - task: PowerShell@2
   inputs:
     filePath: 'deployment.ps1'
-    arguments: -password $(password) -appId $(appid) -tenantId $(tenantid) -rgName $(rgname)
+    arguments: -password $(password) -appId $(appid) -tenantId $(tenantid) -rgName $(rgname) -SubscriptionId $(subscription)

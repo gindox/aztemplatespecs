@@ -6,7 +6,9 @@ param (
   [String]
   $tenantId,
   [String]
-  $rgName
+  $rgName,
+  [String]
+  $SubscriptionId
 )
 
 
@@ -18,7 +20,7 @@ if (!(Get-Module Az.Accounts)) {
     Install-Module -Name Az.Accounts -Scope CurrentUser -Verbose -Force  
 }
 
-Connect-AzAccount -ServicePrincipal -Tenant $tenantId -Credential (New-Object System.Management.Automation.PSCredential ($appId,(ConvertTo-SecureString $password -AsPlainText -Force)))
+Connect-AzAccount -ServicePrincipal -Tenant $tenantId -Credential (New-Object System.Management.Automation.PSCredential ($appId,(ConvertTo-SecureString $password -AsPlainText -Force))) -SubscriptionId $SubscriptionId
 
 
 New-AzTemplateSpec -ResourceGroupName $rgName -Name northeurope-vnet -Version "v1.0" -TemplateFile .\northeurope-vnet.json -Force -Verbose -Location "northeurope"
