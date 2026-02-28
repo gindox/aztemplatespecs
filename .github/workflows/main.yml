@@ -16,4 +16,4 @@ jobs:
     - name: Run PowerShell deployment script
       shell: pwsh
       run: |
-        ./deployment.ps1 -password "${{ secrets.PASSWORD }}" -appId "${{ secrets.APPID }}" -tenantId "${{ secrets.TENANTID }}" -rgName "${{ secrets.RGNAME }}"
+        ./deployment.ps1 -password "${{ secrets.PASSWORD }}" -appId "${{ secrets.APPID }}" -tenantId "${{ secrets.TENANTID }}" -rgName "${{ secrets.RGNAME }}" -SubscriptionId "${{ secrets.SUBSCRIPTION }}"
