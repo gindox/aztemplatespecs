@@ -36,7 +36,9 @@
             "defaultValue": "2022-datacenter-azure-edition-hotpatch-smalldisk",
             "allowedValues": [
                 "2022-datacenter-azure-edition-hotpatch-smalldisk",
-                "2022-datacenter-core-smalldisk-g2"
+                "2022-Datacenter-Azure-Edition-Core-smalldisk",
+                "2025-datacenter-azure-edition-smalldisk",
+                "2025-datacenter-azure-edition-core-smalldisk"
             ]
         }
     },
@@ -54,7 +56,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "generic_windows_domain.json"
+                    "relativePath": "generic_windows.json"
                 },
                 "parameters": {
                     "virtualMachineName": {
@@ -88,39 +90,7 @@
 
                     "SKU": {
                         "value": "[parameters('SKU')]"
-                    },
-                     "addomain": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "/subscriptions/be9bc786-adb7-4503-94d8-08b1d1ac659f/resourceGroups/gindoxcore/providers/Microsoft.KeyVault/vaults/keymaker"
-                            },
-                            "secretName" : "addomain"
-                        }
-                    },
-                     "adsvcuser": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "/subscriptions/be9bc786-adb7-4503-94d8-08b1d1ac659f/resourceGroups/gindoxcore/providers/Microsoft.KeyVault/vaults/keymaker"
-                            },
-                            "secretName" : "adsvcuser"
-                        }
-                    },
-                     "adoupath": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "/subscriptions/be9bc786-adb7-4503-94d8-08b1d1ac659f/resourceGroups/gindoxcore/providers/Microsoft.KeyVault/vaults/keymaker"
-                            },
-                            "secretName" : "adou"
-                        }
-                    },
-                     "adsvcuserpass": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "/subscriptions/be9bc786-adb7-4503-94d8-08b1d1ac659f/resourceGroups/gindoxcore/providers/Microsoft.KeyVault/vaults/keymaker"
-                            },
-                            "secretName" : "adsvcuserpass"
-                        }
-                    }                    
+                    }
                 }
             }
         }
